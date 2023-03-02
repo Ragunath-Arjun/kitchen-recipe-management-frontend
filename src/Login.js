@@ -31,14 +31,14 @@ function Login() {
     },
     onSubmit: async (values) => {
       try {
-        const login = await axios.post("https://money-manager-backend-9yjg.onrender.com/login", values, {
+        const login = await axios.post("https://kitchen-recipe-management-backend.onrender.com/login", values, {
           headers: {
             Authorization: `${window.localStorage.getItem("token")}`,
           },
         });
         if (login.data.token) {
           window.localStorage.setItem("token", login.data.token);
-          Navigate("/Homepage");
+          Navigate("/Dashboard");
         }
         else
         {
@@ -57,7 +57,7 @@ function Login() {
         <div className="logo1">
           <img
             src={require("./logo1.PNG")}
-            alt="Money Manager icon"
+            alt="Kitchen recipe icon"
           />
         </div>
         <div className="text-center mt-4 name">Kitchen Recipes</div>

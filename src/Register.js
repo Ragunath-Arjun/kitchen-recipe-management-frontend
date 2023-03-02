@@ -45,7 +45,7 @@ function Register() {
     },
     onSubmit: async (values) => {
       const new_users = await axios.post(
-        "https://money-manager-backend-9yjg.onrender.com/register",
+        "https://kitchen-recipe-management-backend.onrender.com/register",
         values
       );
       setemail(new_users?.data?.error);

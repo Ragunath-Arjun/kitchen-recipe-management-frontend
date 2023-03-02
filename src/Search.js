@@ -16,7 +16,7 @@ function Search() {
 
   let getdata=async()=>{
     try {
-      const recipes=await axios.get("http://localhost:8000/recipes");
+      const recipes=await axios.get("https://kitchen-recipe-management-backend.onrender.com/recipes");
     setData(recipes.data);
     } catch (error) {
       console.log("error",error)
