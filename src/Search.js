@@ -44,7 +44,7 @@ function Search() {
         </div>
       </div>
 
-      <div className="container mt-4">
+      <div className="container">
         <div className="row">
           {datas.filter((val) => {
     return val.recipe_name.toLowerCase().includes(searchInput.toLowerCase())}).map((ele)=>{

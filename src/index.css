@@ -5,16 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: #101820FF; */
   font-family: "Josefin Sans" !important;
 
 }
-
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
+html{
+  scroll-behavior: smooth;
+  scroll-padding:5rem;
+}
 /* <!---Login---> */
 
 .wrapper {
@@ -258,7 +255,9 @@ z-index: 2;
   border-radius: 3rem;
   background-color:whitesmoke;
   border:1px solid #8A307F;
+  Padding:2rem;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.5rem;
 }
 
 .search_icon{

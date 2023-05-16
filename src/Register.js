@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const [isemail, setemail] = useState([]);
   const Navigate = useNavigate();
+  const [isCreating,setCreating]=useState(false);
+
   const myFormik = useFormik({
     initialValues: {
       userName: "",
@@ -44,6 +46,7 @@ function Register() {
       return errors;
     },
     onSubmit: async (values) => {
+      setCreating(true);
       const new_users = await axios.post(
         "https://kitchen-recipe-management-backend.onrender.com/register",
         values
@@ -61,7 +64,7 @@ function Register() {
         <div className="logo1">
           <img
             src={require("./logo1.PNG")}
-            alt="Money Manager icon"
+            alt="Kitchen Recipe icon"
           />
         </div>
         <div className="text-center mt-4 name">Kitchen Recipes</div>
@@ -118,9 +121,7 @@ function Register() {
             {myFormik.errors.Confirm_password}
           </span>
           {isemail ? <span style={{ color: "red" }}>{isemail}</span> : null}
-          <button className="btn mt-3" type="Submit">
-            Sign Up!
-          </button>
+          <input disabled={isCreating} className="btn mt-3" value={isCreating ? "Creating User" : "Sign Up!"} type="Submit"/>
         </form>
         <div className="text-center fs-6">
           <Link to={"/"}>Already have an account!</Link>

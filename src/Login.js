@@ -1,11 +1,19 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const Navigate = useNavigate();
+
   const [Login, setLogin] = useState([]);
+
+  const [isLoading, setLoading] = useState(false);
+
   const myFormik = useFormik({
     initialValues: {
       email: "",
@@ -13,8 +21,9 @@ function Login() {
     },
     validate: (values) => {
       let errors = {};
-      if (values.email == "") {
-        errors.email = "email cannot be blank";
+
+      if (!values.email) {
+        errors.email = "Email cannot be blank";
       } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
       ) {
@@ -22,7 +31,7 @@ function Login() {
       } else if (values.email.length <= 3) {
         errors.email = "Enter Valid email";
       }
-      if (values.password == "") {
+      if (!values.password) {
         errors.password = "Password cannot be blank";
       } else if (values.password.length <= 5) {
         errors.password = "Password length should be more than 5 characters";
@@ -31,34 +40,49 @@ function Login() {
     },
     onSubmit: async (values) => {
       try {
-        const login = await axios.post("https://kitchen-recipe-management-backend.onrender.com/login", values, {
-          headers: {
-            Authorization: `${window.localStorage.getItem("token")}`,
-          },
-        });
+        setLoading(true);
+        const login = await axios.post(
+          "https://kitchen-recipe-management-backend.onrender.com/login",
+          values,
+          {
+            headers: {
+              Authorization: `${window.localStorage.getItem("token")}`,
+            },
+          }
+        );
         if (login.data.token) {
           window.localStorage.setItem("token", login.data.token);
           Navigate("/Dashboard");
-        }
-        else
-        {
-          alert("Email/password is incorrect");
-
+        } else {
+          notify();
+          setLoading(false);
         }
       } catch (error) {
-        alert("Email/password is incorrect");
         console.log("Error", error);
+        alert("Validation Error");
+        setLoading(false);
       }
     },
   });
+
+  const notify = () => {
+    toast.error("Login/Password is incorrect!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   return (
     <>
       <div className="wrapper">
         <div className="logo1">
-          <img
-            src={require("./logo1.PNG")}
-            alt="Kitchen recipe icon"
-          />
+          <img src={require("./logo1.PNG")} alt="Kitchen recipe icon" />
         </div>
         <div className="text-center mt-4 name">Kitchen Recipes</div>
         <form className="p-3 mt-3" onSubmit={myFormik.handleSubmit}>
@@ -91,15 +115,31 @@ function Login() {
           </div>
           <span style={{ color: "red" }}>{myFormik.errors.password}</span>
 
-          <button className="btn mt-3" type="Submit">
-            Login
-          </button>
+          <input
+            disabled={isLoading}
+            className="btn mt-3"
+            value={isLoading ? "Logging in " : "Login"}
+            type="Submit"
+          />
         </form>
+
         <div className="text-center fs-6">
           <a href="#">Forget password?</a> or{" "}
           <Link to={"/Register"}>Sign up</Link>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }
