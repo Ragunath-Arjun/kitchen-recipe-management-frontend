@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Topbar() {
   const navigate = useNavigate();
   const logout = () => {
+    window.localStorage.removeItem("token");
     navigate("/");
   };
   return (
