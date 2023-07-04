@@ -12,7 +12,7 @@ function Topbar() {
         <a class="navbar-brand ml-5">
           <img
             className="logo img-fluid ml-5"
-            src={require("../src/logo1.PNG")}
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Chicken_icon_05.svg/1633px-Chicken_icon_05.svg.png"
           />
         </a>
         <button
@@ -54,13 +54,13 @@ function Topbar() {
             </li>
             <li class="nav-item">
               <a href="#contact" class="nav-link text-white">
-                 Contact Us
+                Contact Us
               </a>
             </li>
           </ul>
           <button
             type="button"
-            className="btn-primary mr-4"
+            className="btn-primary mr-4 logbtn"
             onClick={() => {
               logout();
             }}

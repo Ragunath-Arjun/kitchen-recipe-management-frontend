@@ -82,7 +82,10 @@ function Login() {
     <>
       <div className="wrapper">
         <div className="logo1">
-          <img src={require("./logo1.PNG")} alt="Kitchen recipe icon" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Chicken_icon_05.svg/1633px-Chicken_icon_05.svg.png"
+            alt="Kitchen recipe icon"
+          />
         </div>
         <div className="text-center mt-4 name">Kitchen Recipes</div>
         <form className="p-3 mt-3" onSubmit={myFormik.handleSubmit}>
