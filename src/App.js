@@ -1,20 +1,31 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Login from "./Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
-import Footer from "./Footer";
-import Topbar from "./Topbar";
+import { useState } from "react";
 
 function App() {
+  const [loggedin, setLoggedIn] = useState(false);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/Dashboard" element={<Dashboard />}></Route>
+          <Route
+            path="/"
+            exact
+            element={<Login handleLog={setLoggedIn} />}
+          ></Route>
+          <Route
+            path="/register"
+            element={<Register handleLog={setLoggedIn} />}
+          ></Route>
+          <Route
+            path="/Dashboard"
+            exact
+            element={loggedin ? <Dashboard /> : "NOT AUTHORISED"}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

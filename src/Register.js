@@ -3,10 +3,10 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Register() {
+function Register({ handleLog }) {
   const [isemail, setemail] = useState([]);
   const Navigate = useNavigate();
-  const [isCreating,setCreating]=useState(false);
+  const [isCreating, setCreating] = useState(false);
 
   const myFormik = useFormik({
     initialValues: {
@@ -53,6 +53,7 @@ function Register() {
       );
       setemail(new_users?.data?.error);
       console.log(new_users);
+      handleLog(true);
       if (!new_users?.data?.error) {
         Navigate("/Dashboard");
       }
@@ -62,10 +63,7 @@ function Register() {
     <>
       <div className="wrapper mt-1">
         <div className="logo1">
-          <img
-            src={require("./logo1.PNG")}
-            alt="Kitchen Recipe icon"
-          />
+          <img src={require("./logo1.PNG")} alt="Kitchen Recipe icon" />
         </div>
         <div className="text-center mt-4 name">Kitchen Recipes</div>
         <form className="p-3 mt-3" onSubmit={myFormik.handleSubmit}>
@@ -121,7 +119,12 @@ function Register() {
             {myFormik.errors.Confirm_password}
           </span>
           {isemail ? <span style={{ color: "red" }}>{isemail}</span> : null}
-          <input disabled={isCreating} className="btn mt-3" value={isCreating ? "Creating User" : "Sign Up!"} type="Submit"/>
+          <input
+            disabled={isCreating}
+            className="btn mt-3"
+            value={isCreating ? "Creating User" : "Sign Up!"}
+            type="Submit"
+          />
         </form>
         <div className="text-center fs-6">
           <Link to={"/"}>Already have an account!</Link>

@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Login() {
+function Login({ handleLog }) {
   const Navigate = useNavigate();
 
   const [Login, setLogin] = useState([]);
@@ -52,6 +52,7 @@ function Login() {
         );
         if (login.data.token) {
           window.localStorage.setItem("token", login.data.token);
+          handleLog(true);
           Navigate("/Dashboard");
         } else {
           notify();
